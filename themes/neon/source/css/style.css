@@ -1,16 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
 
 :root {
-  --bg-main: linear-gradient(135deg, #010403 0%, #030807 42%, #02030a 100%);
-  --bg-panel: rgba(3, 10, 8, 0.78);
-  --bg-panel-strong: rgba(4, 13, 10, 0.92);
+  --bg-main: #010403;
+  --bg-panel: rgba(1, 12, 8, 0.82);
+  --bg-panel-strong: rgba(2, 16, 11, 0.94);
   --text-primary: #e7fff3;
-  --text-muted: #7aa694;
+  --text-muted: #82ad9c;
   --accent: #33ff88;
   --accent-2: #00d7ff;
   --accent-3: #8b5cf6;
-  --grid-line: rgba(51, 255, 136, 0.075);
-  --scan-line: rgba(51, 255, 136, 0.045);
+  --grid-line: rgba(51, 255, 136, 0.16);
+  --grid-line-soft: rgba(0, 215, 255, 0.08);
+  --scan-line: rgba(51, 255, 136, 0.07);
+}
+
+html {
+  min-height: 100%;
+  background: #010403;
 }
 
 *,
@@ -23,8 +29,11 @@ body {
   min-height: 100vh;
   margin: 0;
   color: var(--text-primary);
-  background: var(--bg-main);
+  background:
+    linear-gradient(135deg, rgba(1, 4, 3, 0.95) 0%, rgba(2, 12, 8, 0.98) 46%, rgba(1, 4, 8, 0.96) 100%),
+    var(--bg-main);
   font-family: 'Space Grotesk', system-ui, sans-serif;
+  overflow-x: hidden;
 }
 
 body::before,
@@ -40,18 +49,36 @@ body::before {
   background:
     linear-gradient(var(--grid-line) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
-    linear-gradient(135deg, rgba(0, 215, 255, 0.08), transparent 38%, rgba(51, 255, 136, 0.08));
-  background-size: 42px 42px, 42px 42px, 100% 100%;
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.42));
+    linear-gradient(var(--grid-line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line-soft) 1px, transparent 1px),
+    linear-gradient(115deg, transparent 0 22%, rgba(51, 255, 136, 0.12) 22.2%, transparent 22.8% 58%, rgba(0, 215, 255, 0.09) 58.2%, transparent 58.8%);
+  background-position: center;
+  background-size: 42px 42px, 42px 42px, 168px 168px, 168px 168px, 100% 100%;
+  opacity: 0.78;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.98), rgba(0, 0, 0, 0.64));
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.98), rgba(0, 0, 0, 0.64));
 }
 
 body::after {
   z-index: 1;
   background:
     repeating-linear-gradient(0deg, transparent 0, transparent 3px, var(--scan-line) 4px),
-    repeating-linear-gradient(90deg, transparent 0, transparent 96px, rgba(0, 215, 255, 0.035) 97px);
+    linear-gradient(180deg, transparent 0%, rgba(51, 255, 136, 0.08) 48%, transparent 52%),
+    repeating-linear-gradient(90deg, transparent 0, transparent 96px, rgba(0, 215, 255, 0.05) 97px);
+  background-size: auto, 100% 260px, auto;
   mix-blend-mode: screen;
-  opacity: 0.7;
+  opacity: 0.86;
+  animation: terminal-scan 8s linear infinite;
+}
+
+@keyframes terminal-scan {
+  from {
+    background-position: 0 0, 0 -260px, 0 0;
+  }
+
+  to {
+    background-position: 0 0, 0 100vh, 0 0;
+  }
 }
 
 a {
