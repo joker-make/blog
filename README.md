@@ -1,6 +1,6 @@
 # Joker Make Blog
 
-这是个人博客的免费部署版本，使用 Hexo 生成静态站点，并通过 GitHub Actions 发布到 GitHub Pages。
+这是个人博客的免费部署版本，使用 Hexo 生成静态站点，并通过 GitHub Actions 发布到 GitHub Pages。站点使用本地 `neon` 主题，视觉风格对齐原 Vue 版本。
 
 访问地址：
 
@@ -21,7 +21,7 @@ npm run server
 npm run new -- "文章标题"
 ```
 
-文章会生成在 `source/_posts/`。使用 Markdown 编写正文，通过 Front Matter 配置分类和标签。
+文章会生成在 `source/_posts/`。当前版本默认不包含文章；新增 Markdown 后会自动出现在首页和文章中心。使用 Front Matter 配置分类和标签。
 
 示例：
 

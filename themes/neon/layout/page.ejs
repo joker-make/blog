@@ -1,0 +1,59 @@
+<% const posts = site.posts.sort('-date').toArray(); %>
+
+<div class="page-shell">
+  <section class="page-card glass-card">
+    <div class="page-header">
+      <h1><%= page.title %></h1>
+      <% if (page.type === 'articles') { %>
+        <p>静态博客文章索引</p>
+      <% } else if (page.type === 'categories') { %>
+        <p>按主题整理技术笔记</p>
+      <% } else if (page.type === 'tags') { %>
+        <p>按关键词快速定位内容</p>
+      <% } else { %>
+        <p>个人简介与项目展示</p>
+      <% } %>
+    </div>
+
+    <% if (page.type === 'articles') { %>
+      <% if (posts.length) { %>
+        <div class="article-list">
+          <% posts.forEach(function(post) { %>
+            <a class="article-row" href="<%- url_for(post.path) %>">
+              <span><%= post.title %></span>
+              <time><%= date(post.date, 'YYYY-MM-DD') %></time>
+            </a>
+          <% }) %>
+        </div>
+      <% } else { %>
+        <div class="empty-state">暂无文章，新增 `source/_posts/` Markdown 后这里会自动更新。</div>
+      <% } %>
+    <% } else if (page.type === 'categories') { %>
+      <% const categories = site.categories.sort('name').toArray(); %>
+      <% if (categories.length) { %>
+        <div class="chip-grid">
+          <% categories.forEach(function(category) { %>
+            <a class="chip" href="<%- url_for(category.path) %>"><%= category.name %><span><%= category.length %></span></a>
+          <% }) %>
+        </div>
+      <% } else { %>
+        <div class="empty-state">暂无分类。</div>
+      <% } %>
+    <% } else if (page.type === 'tags') { %>
+      <% const tags = site.tags.sort('name').toArray(); %>
+      <% if (tags.length) { %>
+        <div class="chip-grid">
+          <% tags.forEach(function(tag) { %>
+            <a class="chip" href="<%- url_for(tag.path) %>"><%= tag.name %><span><%= tag.length %></span></a>
+          <% }) %>
+        </div>
+      <% } else { %>
+        <div class="empty-state">暂无标签。</div>
+      <% } %>
+    <% } else { %>
+      <div class="content">
+        <%- page.content %>
+      </div>
+    <% } %>
+  </section>
+</div>

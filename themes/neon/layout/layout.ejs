@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="<%= config.language || 'zh-CN' %>">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="<%= config.description %>">
+  <title><% if (page.title) { %><%= page.title %> | <% } %><%= config.title %></title>
+  <%- css('css/style') %>
+</head>
+<body>
+  <div class="app-root">
+    <header class="app-header">
+      <a class="logo" href="<%- url_for('/') %>">
+        <span class="logo-mark">NEON</span>
+        <span class="logo-text">技艺日志</span>
+      </a>
+      <nav class="nav" aria-label="主导航">
+        <% Object.keys(theme.menu).forEach(function(name) { %>
+          <a href="<%- url_for(theme.menu[name]) %>"><%= name %></a>
+        <% }) %>
+      </nav>
+    </header>
+
+    <main class="app-main">
+      <%- body %>
+    </main>
+
+    <footer class="app-footer">
+      <span>© <%= new Date().getFullYear() %> NEON 技艺日志</span>
+    </footer>
+  </div>
+</body>
+</html>
